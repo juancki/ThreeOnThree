@@ -46,9 +46,9 @@ public class Cube {
     public void setPosition(Position a, boolean on){
         last_cube = cube.clone();
         if(on){
-            setPosition(a.k,a.i,a.j);
+            setPosition(a.i,a.j,a.k);
         } else {
-            clearPosition(a.k,a.i,a.j);
+            clearPosition(a.i,a.j,a.k);
         }
     }
     /*
@@ -65,7 +65,7 @@ public class Cube {
      and return false if the position was clear before.
      */
     public boolean clearPosition(int x, int y, int z){
-        if (cube[z][x][y]==false){
+        if (!cube[z][x][y]){
             return false;
         }
         last_cube = cube.clone();
@@ -83,17 +83,17 @@ public class Cube {
             }
         }
     }
-
+	/*
+	For to do.
+	 */
     public boolean is3inLine(){
 
         return false;
     }
 
     private boolean isLineOk(Line line){
-        if (line.isInLine())
-            return (getState(line.a)&&getState(line.b)&&getState(line.c));
-        return false;
-    }
+		return line.isInLine() && (getState(line.a) && getState(line.b) && getState(line.c));
+	}
 
     public boolean getState(Position a){
         return cube[a.k][a.i][a.j];

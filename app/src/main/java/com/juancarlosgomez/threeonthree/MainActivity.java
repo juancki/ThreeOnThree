@@ -1,18 +1,13 @@
 package com.juancarlosgomez.threeonthree;
 
 import android.graphics.Color;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.GridLayout;
 import android.widget.LinearLayout;
-import android.widget.TableLayout;
-import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -73,7 +68,7 @@ public class MainActivity extends ActionBarActivity {
         for (int i = 0; i < game.dimension; i++) {
             for (int j = 0; j < game.dimension; j++) {
                 try {
-                    ClickForm cf = (ClickForm) game.getClick(new Position(i, j, currentFlat - 1)).getClickForm();
+                    ClickForm cf = game.getClick(new Position(i, j, currentFlat - 1)).getClickForm();
                     switch (cf) {
                         case Triangle:
                             btns[i][j].setText("∆");
@@ -89,8 +84,8 @@ public class MainActivity extends ActionBarActivity {
                             break;
                     }
                 } catch (Exception e) {
-
-                }
+					System.out.println(e.toString());
+				}
             }
         }
 
@@ -143,7 +138,13 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void resetGame(View view) {
-        game = new Game(game.dimension);
+        game = new Game();
+		Player p1 = new Player(new Cube());
+		Player p2 = new Player(new Cube());
+		p1.setClick(new Click(Click.DEFAULT_1));
+		p2.setClick(new Click(Click.DEFAULT_2));
+		game.addPlayer(p1);
+		game.addPlayer(p2);
         resetGrid();
         setCurrentFlat(1);
     }
@@ -172,7 +173,7 @@ public class MainActivity extends ActionBarActivity {
                     @Override
                     public void onClick(View v) {
                         JButton btn = (JButton) v;
-                        setPosition(btn);
+                    	setPosition(btn);
                     }
                 });
                 linearLayout[i].addView(btns[i][j]);

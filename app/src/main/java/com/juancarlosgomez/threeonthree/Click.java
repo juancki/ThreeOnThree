@@ -9,8 +9,27 @@ public class Click {
     public ClickForm clickForm;
     private int color;
     public ClickColor clickColor;
+	public static final String DEFAULT_1 = "DEFAULT_1";
+	public static final String DEFAULT_2 = "DEFAULT_2";
 
-    public Click(ClickColor clickColor, ClickForm clickForm) {
+
+	public Click() {
+		clickColor = ClickColor.Transparent;
+		clickForm  = ClickForm.None;
+	}
+
+	public Click(String s) {
+	if (s.equals(DEFAULT_1)){
+			clickColor =	ClickColor.Black;
+			clickForm  =	ClickForm.Blade;
+		}else if (s.equals(DEFAULT_2)){
+			clickColor =	ClickColor.Black;
+			clickForm  =	ClickForm.Circle;
+		}
+
+	}
+
+	public Click(ClickColor clickColor, ClickForm clickForm) {
         this.clickColor = clickColor;
         this.clickForm = clickForm;
         switch (clickColor) {
